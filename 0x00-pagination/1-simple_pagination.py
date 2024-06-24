@@ -9,7 +9,8 @@ from typing import List, Tuple
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    Returns a tuple containing a start & end index corresponding to the range of indexes
+    Returns a tuple containing a start & end index
+    corresponding to the range of indexes
     to return in a list for those particular pagination parameters.
     """
     start = (page - 1) * page_size
@@ -43,7 +44,7 @@ class Server:
 
         start, end = index_range(page, page_size)
         data = self.dataset()
-        
+
         if start > len(data):
             return []
 
