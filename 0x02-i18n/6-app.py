@@ -49,6 +49,16 @@ def get_locale():
     loc = request.args.get('locale')
     if loc in app.config['LANGUAGES']:
         return loc
+
+    if g.user:
+        loc = g.user.get('locale')
+        if loc and loc in app.config['LANGUAGES']:
+            return loc
+
+    loc = request.headers.get('locale', None)
+    if loc in app.config['LANGUAGES']:
+        return loc
+
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 babel = Babel(app, locale_selector=get_locale)
@@ -57,7 +67,7 @@ babel = Babel(app, locale_selector=get_locale)
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """ Default route """
-    return render_template('5-index.html')
+    return render_template('6-index.html')
 
 
 if __name__ == "__main__":
